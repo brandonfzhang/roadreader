@@ -23,3 +23,11 @@
 -replace "Created using Colaboratory" with an actual commit message thanks
 
 -no need to select "link to colab", then hit ok
+
+## setting up raspi (add steps if you think anything is missing)
+
+-[install the sunfounder picar module](https://www.sunfounder.com/learn/SunFounder-PiCar-S/software-installation-picar-s.html)
+
+-install tensorflow 1.14 (pip3 install tensorflow==1.14)
+
+-install libhdf5 (sudo apt-get install libhdf5-serial-dev)
