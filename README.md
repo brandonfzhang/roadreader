@@ -26,7 +26,7 @@
 
 ## setting up raspi (add steps if you think anything is missing)
 
--[download this raspberry pi image file to your pc]
+-[download this raspberry pi image file to your pc](https://drive.google.com/file/d/1JJifkjcFL7jgqRt8WhAlYyWapGxR-p-N/view)
 
 -use win32 disk imager to write the file to the sd card
 
