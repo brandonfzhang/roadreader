@@ -30,7 +30,7 @@
 
 -use win32 disk imager to write the file to the sd card
 
-~~-[install the sunfounder picar module](https://www.sunfounder.com/learn/SunFounder-PiCar-S/software-installation-picar-s.html)
+~~-[install the sunfounder picar module](https://www.sunfounder.com/learn/SunFounder-PiCar-S/software-installation-picar-s.html)~~
 
 ~~-install tensorflow 1.14 (pip3 install tensorflow==1.14)~~
 
