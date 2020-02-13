@@ -31,8 +31,11 @@
 -use win32 disk imager to write the file to the sd card
 
 -run these commands in the following order to remove VNC credentials:
+
 sudo systemctl stop vncserver-x11-serviced
+
 sudo rm -rf /root/.vnc
+
 sudo systemctl start vncserver-x11-serviced
 
 ~~-[install the sunfounder picar module](https://www.sunfounder.com/learn/SunFounder-PiCar-S/software-installation-picar-s.html)~~
