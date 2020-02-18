@@ -27,9 +27,10 @@ time.sleep(2.0)
 
 #need constant speed of car to calculate distance and such
 
-timeout = time.time() + 10 # 10 seconds from starting time
+initial = time.time()
 
-while time.time() <= timeout:
+#print("start")
+while time.time() <= initial+10:
     fw.forward()
     bw.forward()
     
@@ -41,7 +42,11 @@ while time.time() <= timeout:
     cv2.imshow("Frame", frame)
     key = cv2.waitKey(1) & 0xFF
     
-    filename = ('/home/pi/roadreader/dataset/' + str(datetime.datetime.now()) + '.png')
+    classify = 0
+    #arbitrary boundaries, we need to calculate them once we know the car's constant speed
+    if time.time() >= initial+5 and time.time() <= initial+7:
+        classify = 1
+    filename = ('/home/pi/roadreader/dataset/' + classify + ' ' + str(datetime.datetime.now()) + '.png')
     cv2.imwrite(filename, frame)
     
     if key == ord("q"):
