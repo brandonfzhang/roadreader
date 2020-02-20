@@ -19,7 +19,7 @@ fw = front_wheels.Front_Wheels(db='config')
 bw = back_wheels.Back_Wheels(db='config')
 
 gate_value = 30     # less then the normal, will act
-forward_speed = 90
+forward_speed = 100
 bw.speed = forward_speed
 
 vs = VideoStream(src=0).start()
@@ -31,8 +31,8 @@ initial = time.time()
 
 #print("start")
 while time.time() <= initial+10:
-    fw.forward()
-    bw.forward()
+    fw.turn_straight()
+    bw.backward()
     
     frame = vs.read()
     frame = imutils.resize(frame, width=400)
@@ -54,5 +54,4 @@ while time.time() <= initial+10:
 
 cv2.destroyAllWindows()
 vs.stop()
-fw.stop()
 bw.stop()
