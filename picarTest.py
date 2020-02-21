@@ -35,7 +35,7 @@ while time.time() <= initial+10:
     frame = vs.read()
     frame = imutils.resize(frame, width=400)
     
-    frame = cv2.resize(frame, (28, 28))
+    #frame = cv2.resize(frame, (28, 28))
     
     cv2.imshow("Frame", frame)
     key = cv2.waitKey(1) & 0xFF
