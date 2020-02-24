@@ -50,7 +50,7 @@ while time.time() <= initial+10:
     if time.time() >= initial+5 and time.time() <= initial+7:
         classify = 1
     
-    random = randint(5) #1 in 6 chance to be added to the test dataset instead of training
+    random = randint(0, 5) #1 in 6 chance to be added to the test dataset instead of training
     if random == 0:
         filename = ('/home/pi/roadreader/tests/' + classify + ' ' + str(datetime.datetime.now()) + '.png')
     else:
