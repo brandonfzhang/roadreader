@@ -12,18 +12,18 @@ import time
 from picar import front_wheels
 from picar import back_wheels
 from picar import ADC
-import time
+import datetime
 import picar
 from random import randint
 
-picar.setup()
+#picar.setup()
 
-fw = front_wheels.Front_Wheels(db='config')
-bw = back_wheels.Back_Wheels(db='config')
+#fw = front_wheels.Front_Wheels(db='config')
+#bw = back_wheels.Back_Wheels(db='config')
 
-gate_value = 30     # less then the normal, will act
-forward_speed = 100
-bw.speed = forward_speed
+#gate_value = 30     # less then the normal, will act
+#forward_speed = 100
+#bw.speed = forward_speed
 
 vs = VideoStream(src=0).start()
 time.sleep(2.0)
@@ -36,33 +36,23 @@ while True:
     if key == ord("q"):
         break;
     
-    if key == ord("w"):
-        bw.backward()
-    elif key == ord("s"):
-        bw.forward()
-    else
-        bw.stop()
-        
-    if key == ord("a"):
-        fw.turn(70)
-    elif key == ord("d"):
-        fw.turn(110)
+    classify = 0
+    if key == ord("1"):
+        classify = 1
     
     frame = vs.read()
     frame = imutils.resize(frame, width=400)
-    
-    frame = cv2.resize(frame, (28, 28))
     
     cv2.imshow("Frame", frame)
     
     random = randint(0, 5) #1 in 6 chance to be added to the test dataset instead of training
     if random == 0:
-        filename = ('/home/pi/roadreader/tests/' + classify + ' ' + str(datetime.datetime.now()) + '.png')
+        filename = ('/home/pi/roadreader/tests/' + str(classify) + ' ' + str(datetime.datetime.now()) + '.png')
     else:
-        filename = ('/home/pi/roadreader/training/' + classify + ' ' + str(datetime.datetime.now()) + '.png')
+        filename = ('/home/pi/roadreader/training/' + str(classify) + ' ' + str(datetime.datetime.now()) + '.png')
     
     cv2.imwrite(filename, frame)
 
 cv2.destroyAllWindows()
 vs.stop()
-bw.stop()
+#bw.stop()
