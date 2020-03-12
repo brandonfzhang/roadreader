@@ -14,6 +14,9 @@ from picar import back_wheels
 from picar import ADC
 import time
 import picar
+from random import randint
+
+picar.setup()
 
 fw = front_wheels.Front_Wheels(db='config')
 bw = back_wheels.Back_Wheels(db='config')
@@ -46,7 +49,13 @@ while time.time() <= initial+10:
     #arbitrary boundaries, we need to calculate them once we know the car's constant speed
     if time.time() >= initial+5 and time.time() <= initial+7:
         classify = 1
-    filename = ('/home/pi/roadreader/dataset/' + classify + ' ' + str(datetime.datetime.now()) + '.png')
+    
+    random = randint(0, 4) #1 in 6 chance to be added to the test dataset instead of training
+    if random == 0:
+        filename = ('/home/pi/roadreader/tests/' + str(classify) + '/' + str(datetime.datetime.now()) + '.png')
+    else:
+        filename = ('/home/pi/roadreader/training/' + str(classify) + '/' + str(datetime.datetime.now()) + '.png')
+    
     cv2.imwrite(filename, frame)
     
     if key == ord("q"):
