@@ -15,18 +15,6 @@ from picar import ADC
 import datetime
 import picar
 from random import randint
-from pynput.keyboard import Key, Listener, KeyCode
-
-current_keys = set()
-
-def on_press(key):
-    current_keys.add(key)
-    #print("button is being held")
-
-def on_release(key):
-    if key in current_keys:
-        current_keys.remove(key)
-        #print("button is no longer being held")
 
 picar.setup()
 
@@ -40,35 +28,37 @@ bw.speed = forward_speed
 vs = VideoStream(src=0).start()
 time.sleep(2.0)
 
-listener = Listener(on_press=on_press, on_release=on_release)
-listener.start()
-
 #need constant speed of car to calculate distance and such
 
 while True:
-    if KeyCode.from_char('q') in current_keys:
-        break;
+    key = cv2.waitKey(1) & 0xFF
+    
+    if key == ord("q"):
+        break
     
     classify = 0
-    if KeyCode.from_char('1') in current_keys:
+    if key == ord("1"):
         classify = 1
-        
-    if KeyCode.from_char('w') in current_keys:
+    
+    if key == ord("w"):
         bw.backward()
-    elif KeyCode.from_char('s') in current_keys:
+    elif key == ord("x"):
         bw.forward()
-    else
+    elif key == ord("s"):
         bw.stop()
         
-    if KeyCode.from_char('a') in current_keys:
+    if key == ord("a"):
         fw.turn(45)
-    elif KeyCode.from_char('d') in current_keys:
+    elif key == ord("d"):
         fw.turn(135)
-    else
+    elif key == ord("z"):
         fw.turn_straight()
     
     frame = vs.read()
     frame = imutils.resize(frame, width=400)
+    
+    #label = "{}".format()
+    #frame = cv2.putText(frame, label, (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
     
     cv2.imshow("Frame", frame)
     
