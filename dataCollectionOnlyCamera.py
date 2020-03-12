@@ -16,6 +16,14 @@ import datetime
 import picar
 from random import randint
 
+def save_image(classify):
+    random = randint(0, 4) #1 in 5 chance to be added to the test dataset instead of training
+    if random == 0:
+        filename = ('/home/pi/roadreader/tests/' + str(classify) + '/' + str(datetime.datetime.now()) + '.png')
+    else:
+        filename = ('/home/pi/roadreader/training/' + str(classify) + '/' + str(datetime.datetime.now()) + '.png')
+    cv2.imwrite(filename, frame)
+
 #picar.setup()
 
 #fw = front_wheels.Front_Wheels(db='config')
@@ -34,24 +42,17 @@ while True:
     key = cv2.waitKey(1) & 0xFF
     
     if key == ord("q"):
-        break;
-    
-    classify = 0
-    if key == ord("1"):
-        classify = 1
+        break
     
     frame = vs.read()
     frame = imutils.resize(frame, width=400)
     
     cv2.imshow("Frame", frame)
     
-    random = randint(0, 4) #1 in 6 chance to be added to the test dataset instead of training
-    if random == 0:
-        filename = ('/home/pi/roadreader/tests/' + str(classify) + '/' + str(datetime.datetime.now()) + '.png')
-    else:
-        filename = ('/home/pi/roadreader/training/' + str(classify) + '/' + str(datetime.datetime.now()) + '.png')
-    
-    cv2.imwrite(filename, frame)
+    if key == ord("0"):
+        save_image(0)
+    elif key == ord("1"):
+        save_image(1)
 
 cv2.destroyAllWindows()
 vs.stop()
