@@ -12,7 +12,7 @@ import time
 from picar import front_wheels
 from picar import back_wheels
 from picar import ADC
-import time
+import datetime
 import picar
 from random import randint
 
@@ -32,22 +32,22 @@ time.sleep(2.0)
 
 initial = time.time()
 
+
 #print("start")
-while time.time() <= initial+10:
+while time.time() <= initial+3.58:
     fw.turn_straight()
     bw.backward()
     
     frame = vs.read()
     frame = imutils.resize(frame, width=400)
     
-    frame = cv2.resize(frame, (28, 28))
+    #frame = cv2.resize(frame, (28, 28))
     
-    cv2.imshow("Frame", frame)
     key = cv2.waitKey(1) & 0xFF
     
     classify = 0
     #arbitrary boundaries, we need to calculate them once we know the car's constant speed
-    if time.time() >= initial+5 and time.time() <= initial+7:
+    if time.time() >= initial+2 and time.time() <= initial+2.5:
         classify = 1
     
     random = randint(0, 4) #1 in 6 chance to be added to the test dataset instead of training
@@ -57,6 +57,11 @@ while time.time() <= initial+10:
         filename = ('/home/pi/roadreader/training/' + str(classify) + '/' + str(datetime.datetime.now()) + '.png')
     
     cv2.imwrite(filename, frame)
+    
+    label = "{}".format(classify)
+    frame = cv2.putText(frame, label, (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+    
+    cv2.imshow("Frame", frame)
     
     if key == ord("q"):
         break;
