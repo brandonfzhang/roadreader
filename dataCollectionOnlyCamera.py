@@ -16,7 +16,7 @@ import datetime
 import picar
 from random import randint
 
-def save_image(classify):
+def save_image(classify, frame):
     random = randint(0, 4) #1 in 5 chance to be added to the test dataset instead of training
     if random == 0:
         filename = ('/home/pi/roadreader/tests/' + str(classify) + '/' + str(datetime.datetime.now()) + '.png')
@@ -44,15 +44,15 @@ while True:
     if key == ord("q"):
         break
     
-    frame = vs.read()
-    frame = imutils.resize(frame, width=400)
+    image = vs.read()
+    image = imutils.resize(image, width=400)
     
-    cv2.imshow("Frame", frame)
+    cv2.imshow("Frame", image)
     
     if key == ord("0"):
-        save_image(0)
+        save_image(0, image)
     elif key == ord("1"):
-        save_image(1)
+        save_image(1, image)
 
 cv2.destroyAllWindows()
 vs.stop()
