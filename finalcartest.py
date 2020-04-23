@@ -31,7 +31,7 @@ picar.setup()
 fw = front_wheels.Front_Wheels(db='config')
 bw = back_wheels.Back_Wheels(db='config')
 
-gate_value = 30		# less then the normal, will act
+gate_value = 30     # less then the normal, will act
 speed = 90
 bw.speed = speed
 
@@ -55,12 +55,12 @@ model = keras.Sequential([
   layers.Dense(2, activation='softmax'), #classification layer; 0 for none 1 for stop
 ])
 
-model.load_weights('model.h5')
+model.load_weights('model2.h5')
 
 vs = VideoStream(src=0).start()
 time.sleep(2.0)
 
-bw.forward()
+bw.backward()
 
 while average < 0.88:
   #get status of car
@@ -73,8 +73,19 @@ while average < 0.88:
   image = np.expand_dims(image, axis=0)
   status = np.argmax(model.predict(image)[0]) #must write getStatus method in the tester
   
+  label = "Stop Sign"
+  label = "{}: {}".format(label, status)
+  frame = cv2.putText(frame, label, (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+  
+  cv2.imshow("Frame", frame)
+  key = cv2.waitKey(1) & 0xFF
+    
+  if key == ord("q"):
+    break;
+  
   recentStatus.pop()
   recentStatus.append(status)
+  total = 0
   for s in recentStatus:
       total += s
       average = total/len(recentStatus)

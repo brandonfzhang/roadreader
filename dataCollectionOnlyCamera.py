@@ -19,9 +19,9 @@ from random import randint
 def save_image(classify, frame):
     random = randint(0, 4) #1 in 5 chance to be added to the test dataset instead of training
     if random == 0:
-        filename = ('/home/pi/roadreader/tests/' + str(classify) + '/' + str(datetime.datetime.now()) + '.png')
+        filename = ('/home/pi/roadreader/henryroom/tests/' + str(classify) + '/' + str(datetime.datetime.now()) + '.png')
     else:
-        filename = ('/home/pi/roadreader/training/' + str(classify) + '/' + str(datetime.datetime.now()) + '.png')
+        filename = ('/home/pi/roadreader/henryroom/training/' + str(classify) + '/' + str(datetime.datetime.now()) + '.png')
     cv2.imwrite(filename, frame)
 
 #picar.setup()
