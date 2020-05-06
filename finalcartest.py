@@ -62,7 +62,9 @@ time.sleep(2.0)
 
 bw.backward()
 
-while average < 0.88:
+stop = False
+
+while !(stop):
   #get status of car
   frame = vs.read()
   frame = imutils.resize(frame, width=400)
@@ -86,14 +88,17 @@ while average < 0.88:
   recentStatus.pop()
   recentStatus.append(status)
   total = 0
-  for s in recentStatus:
-      total += s
-      average = total/len(recentStatus)
   
+  signCount = 0
+  for s in recentStatus:
+      if s > 0.7:
+        signCount += 1
+  if signCount >= 5:
+    stop = True
 
 #slows down once gets enough positives
 #use threads for more accuracy
-for i in range(0,speed):
+while speed > 0:
    bw.speed = speed-i
 
 bw.stop()
