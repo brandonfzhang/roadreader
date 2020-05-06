@@ -44,3 +44,14 @@ sudo systemctl start vncserver-x11-serviced
 
 ~~-install libhdf5 (sudo apt-get install libhdf5-serial-dev)~~
 
+## Adding to the data set
+
+- In dataCollectionOnlyCamera.py , set  filename to be the correct directory. You should change this between sessions so that if you screw up data collection, the bad data doesn't spoil all the previous data collected.
+
+- Run dataCollectionOnlyCamera.py
+
+- Holding down the '0' key saves pictures to the '0' subfolder. These photos should have no sign in them.
+
+- Holding down the '1' key saves pics to its subfolder. These photes should have a stop-sign in them.
+
+- Adding a yield sign later would use the '2' key and a '2' subfolder and more signs can be added similarly
