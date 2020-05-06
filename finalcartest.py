@@ -89,11 +89,17 @@ while !(stop):
   recentStatus.append(status)
   total = 0
   
+  #signCount is the number of positives in the past 20 trials
   signCount = 0
+  # positivemin is the confidance needed to calssify a trial as a positve
+  positiveMin = .7
   for s in recentStatus:
-      if s > 0.7:
+      if s > positiveMin:
         signCount += 1
-  if signCount >= 5:
+        
+  # if there were n or more positive in the past 20 trails, stop!
+  n = 5
+  if signCount >= n:
     stop = True
 
 #slows down once gets enough positives
